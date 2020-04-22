@@ -1,8 +1,14 @@
 import styled from 'styled-components';
+import { Link as DefaultLink } from 'react-router-dom';
 
 interface ContainerProps {
   size?: 'small' | 'large';
 }
+
+export const Link = styled(DefaultLink)<{ selected?: boolean }>`
+  padding-bottom: 10px;
+  border-bottom: ${({ selected }) => (selected ? '2px solid #FF872C' : 'none')};
+`;
 
 export const Container = styled.div<ContainerProps>`
   background: #5636d3;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface CardProps {
   total?: boolean;
@@ -29,6 +29,20 @@ export const Card = styled.div`
   border-radius: 5px;
   color: ${({ total }: CardProps): string => (total ? '#fff' : '#363F5F')};
 
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.05);
+    img {
+      animation: moveDown 200ms alternate infinite;
+      ${({ total }) =>
+        total &&
+        css`
+          animation: smoothShake 400ms alternate infinite;
+        `}
+    }
+  }
+  will-change: transform;
+
   header {
     display: flex;
     align-items: center;
@@ -44,6 +58,24 @@ export const Card = styled.div`
     font-size: 36px;
     font-weight: normal;
     line-height: 54px;
+  }
+
+  @keyframes moveDown {
+    0% {
+      transform: translateY(-2px);
+    }
+    100% {
+      transform: translateY(2px);
+    }
+  }
+
+  @keyframes smoothShake {
+    0% {
+      transform: rotateZ(-5deg);
+    }
+    100% {
+      transform: rotateZ(5deg);
+    }
   }
 `;
 
@@ -90,6 +122,14 @@ export const TableContainer = styled.section`
 
     td:last-child {
       border-radius: 0 8px 8px 0;
+    }
+
+    tbody tr {
+      transition: transform 0.2s;
+      will-change: transform;
+      &:hover {
+        transform: translateX(10px);
+      }
     }
   }
 `;
